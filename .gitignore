@@ -1,6 +1,7 @@
 # Additional
 .DS_Store
 *way*/
+cache/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
