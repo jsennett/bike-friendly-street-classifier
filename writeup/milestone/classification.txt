@@ -1,0 +1,11 @@
+--TYPE OF ENVIRONMENT: outdoor
+--SCENE CATEGORIES:
+0.413 -> residential_neighborhood
+0.159 -> forest_road
+0.153 -> highway
+0.050 -> driveway
+0.044 -> field_road
+--SCENE ATTRIBUTES:
+open area, natural light, man-made, 
+driving, asphalt, foliage, 
+vegetation, trees
