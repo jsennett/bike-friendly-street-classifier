@@ -1,0 +1,120 @@
+lanes:both_ways - 22
+cycleway:buffer - 22
+turn:lanes:both_ways - 23
+tracktype - 23
+reversible_lane - 25
+lit - 26
+source:maxspeed - 28
+cycleway:left - 42
+parking:lane:left - 53
+NHS - 58
+tiger:name_type_1 - 61
+tiger:name_base_2 - 64
+parking:lane:right - 66
+foot - 70
+turn:lanes:backward - 83
+turn:lanes:forward - 83
+width - 90
+tiger:name_direction_prefix - 93
+tiger:separated - 102
+tiger:source - 102
+tiger:tlid - 102
+name_1 - 123
+tiger:name_base_1 - 127
+CDOT_route - 141
+parking:lane:both - 148
+lanes:backward - 190
+lanes:forward - 190
+alt_name - 197
+cycleway:both - 200
+source - 204
+turn:lanes - 243
+hgv - 285
+hgv:national_network - 285
+source:hgv:national_network - 285
+cycleway:right - 302
+ref - 336
+sidewalk - 337
+cycleway - 419
+bicycle - 930
+surface - 993
+oneway - 1215
+maxspeed - 1241
+lanes - 1324
+tiger:reviewed - 1480
+tiger:cfcc - 1722
+tiger:name_type - 1730
+tiger:name_base - 1737
+tiger:county - 1994
+name - 2470
+highway - 2537
+
+************
+ highway 
+************
+motorway - 22
+primary - 133
+secondary - 477
+tertiary - 489
+residential - 1416
+
+************
+ sidewalk 
+************
+none - 17
+left - 37
+right - 60
+separate - 92
+both - 131
+None - 2200
+
+************
+ bicycle 
+************
+yes|designated - 1
+yes|yes|yes|yes|designated - 2
+yes|yes|designated - 3
+yes - 68
+designated - 856
+None - 1607
+
+************
+ lanes 
+************
+7 - 2
+6 - 10
+5 - 58
+1 - 135
+4 - 139
+3 - 329
+2 - 651
+None - 1213
+
+************
+ oneway 
+************
+-1 - 122
+no - 406
+yes - 687
+None - 1322
+
+************
+ cycleway 
+************
+opposite_lane - 1
+yes - 3
+no - 3
+track - 8
+shared_lane - 126
+lane - 278
+None - 2118
+
+************
+ RLIS:bicycle 
+************
+None - 2537
+
+************
+ source:bicycle 
+************
+None - 2537

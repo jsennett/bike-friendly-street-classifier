@@ -1,0 +1,119 @@
+bicycle:designated - 43
+placement:backward - 44
+source - 44
+horse - 51
+junction - 56
+hgv:state_network - 56
+source:hgv:state_network - 56
+hgv:national_network - 58
+source:hgv:national_network - 58
+name_1 - 60
+source:imagery - 63
+NHS - 72
+tiger:source - 73
+tiger:separated - 74
+tiger:tlid - 75
+bridge - 81
+lit - 83
+layer - 89
+access - 98
+cycleway:left - 104
+old_ref - 111
+tiger:name_type_1 - 121
+maxweight - 121
+turn:lanes:forward - 136
+turn:lanes:backward - 137
+alt_name - 161
+hgv - 172
+ref - 185
+foot - 195
+tiger:name_base_1 - 239
+bicycle - 364
+turn:lanes - 444
+lanes:forward - 528
+lanes:backward - 533
+trolley_wire - 734
+cycleway - 741
+surface - 813
+cycleway:right - 913
+tiger:reviewed - 1611
+lcn_ref - 1769
+maxspeed - 2032
+sidewalk - 2672
+lanes - 2812
+oneway - 3009
+tiger:name_base - 6218
+tiger:name_type - 6421
+tiger:cfcc - 6486
+tiger:county - 6691
+name - 7022
+highway - 7138
+
+************
+ highway 
+************
+motorway - 150
+secondary - 946
+tertiary - 1108
+primary - 1177
+residential - 3757
+
+************
+ sidewalk 
+************
+none - 62
+left - 96
+separate - 132
+no - 157
+right - 721
+both - 1504
+None - 4466
+
+************
+ bicycle 
+************
+dismount - 1
+private - 9
+designated - 103
+yes - 106
+no - 145
+None - 6774
+
+************
+ lanes 
+************
+7 - 1
+8 - 2
+6 - 14
+5 - 102
+1 - 162
+4 - 456
+3 - 723
+2 - 1352
+None - 4326
+
+************
+ oneway 
+************
+no - 191
+yes - 2818
+None - 4129
+
+************
+ cycleway 
+************
+track - 21
+no - 29
+lane - 313
+shared_lane - 378
+None - 6397
+
+************
+ RLIS:bicycle 
+************
+None - 7138
+
+************
+ source:bicycle 
+************
+None - 7138

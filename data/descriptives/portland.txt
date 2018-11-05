@@ -1,0 +1,130 @@
+NHS - 67
+name:ja - 68
+lanes:bus - 79
+tiger:name_base_1 - 83
+junction - 85
+name:etymology:wikidata - 94
+source:maxspeed - 99
+cycleway:right - 130
+cycleway:left - 134
+lit - 142
+turn:lanes:both_ways - 183
+alt_name - 185
+lanes:both_ways - 187
+foot - 198
+bridge - 203
+layer - 212
+is_in - 219
+source:hgv:national_network - 235
+access - 284
+old_ref - 297
+source:bicycle - 310
+turn:lanes:backward - 326
+hgv:national_network - 329
+turn:lanes:forward - 341
+name_1 - 342
+turn:lanes - 364
+description - 387
+old_name - 409
+hgv - 578
+lanes:backward - 718
+lanes:forward - 720
+tiger:name_type - 848
+ref - 914
+RLIS:bicycle - 984
+surface - 1446
+tiger:name_direction_prefix - 2280
+cycleway - 2765
+oneway - 2898
+tiger:reviewed - 3054
+zip_right - 3231
+zip_left - 3248
+tiger:name_base - 4664
+tiger:cfcc - 4682
+tiger:county - 5211
+lanes - 5496
+bicycle - 6592
+maxspeed - 14211
+sidewalk - 15377
+name - 15526
+highway - 15617
+
+************
+ highway 
+************
+motorway - 238
+primary - 1436
+secondary - 1633
+tertiary - 2905
+residential - 9405
+
+************
+ sidewalk 
+************
+none - 4
+None - 240
+left - 1140
+right - 2609
+no - 4312
+both - 7312
+
+************
+ bicycle 
+************
+private - 2
+avoid - 3
+shared_lane - 5
+no - 228
+yes - 896
+designated - 5458
+None - 9025
+
+************
+ lanes 
+************
+8 - 2
+7 - 5
+6 - 49
+5 - 315
+1 - 464
+4 - 603
+3 - 774
+2 - 3284
+None - 10121
+
+************
+ oneway 
+************
+no - 100
+yes - 2798
+None - 12719
+
+************
+ cycleway 
+************
+opposite - 3
+share_busway - 5
+opposite_lane - 12
+proposed - 19
+track - 37
+no - 78
+shared_lane - 611
+lane - 2000
+None - 12852
+
+************
+ RLIS:bicycle 
+************
+caution_area - 984
+None - 14633
+
+************
+ source:bicycle 
+************
+RLIS;Portland Bureau of Transportation - 5
+http://bikeportland.org/2010/11/04/pbot-streetcar-brings-changes-to-bikeways-in-the-pearl-42217 - 7
+Metro 2011 aerial imagery - 8
+RLIS - 11
+Metro Bicycle Routes WMS - 20
+Portland Bureau of Transportation - 259
+None - 15307
