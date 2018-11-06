@@ -1,0 +1,29 @@
+*********************
+Bike-friendly label
+*********************
+
+    bike-friendly tags:
+bicycle:yes
+bicycle:designated
+bicycle:shared_lane
+
+    non-bike-friendly tags:
+bicycle:None
+bicycle:no
+bicycle:avoid
+
+*********************
+One-way roads
+*********************
+20% of roads are one-way; we need to make sure we face the right way for the camera.
+
+    oneway streets:
+oneway:yes
+oneway:-1       # opposite direction
+
+    not oneway:
+oneway:None
+oneway:no
+
+
+Streets to ignore:
