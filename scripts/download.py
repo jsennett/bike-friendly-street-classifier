@@ -65,12 +65,37 @@ def filter_osm(elements):
     return filtered_ways, filtered_nodes
 
 
-if __name__ == '__main__':
+def download_and_filter_all_regions(regions):
+
+    for region in regions:
+        city_name = region.split(",")[0].lower().replace(" ", "")
+        print("Downloading city:", city_name)
+
+        raw_data_filename = "../data/raw/raw_osm_{}.json".format(city_name)
+        ways_filename = "../data/processed/ways_{}.json".format(city_name)
+        nodes_filename = "../data/processed/nodes_{}.json".format(city_name)
+
+        # Download
+        elements = download_osm(region)
+
+        # Save raw data
+        utils.write_osm(elements, raw_data_filename)
+
+        # Filter
+        ways, nodes = filter_osm(elements)
+        print(len(ways), "ways in filtered data")
+        print(len(nodes), "nodes in filtered data")
+
+        # Save processed data
+        utils.write_osm(ways, ways_filename)
+        utils.write_osm(nodes, nodes_filename)
+
+
+def download_portland():
 
     raw_data_filename = "all_of_portland.json"
     filtered_ways_filename = "ways.json"
     filtered_nodes_filename = "nodes.json"
-
 
     # # Uncomment these lines to re-download the data.
     # portland = download_osm("Portland, Oregon")
@@ -85,3 +110,16 @@ if __name__ == '__main__':
 
     utils.write_osm(ways, filtered_ways_filename)
     utils.write_osm(nodes, filtered_nodes_filename)
+
+if __name__ == '__main__':
+
+    regions = ["Portland, Oregon",
+               "Boulder, Colorado",
+               "Seattle, Washington",
+               "San Francisco, California",
+               "Washington, DC",
+               "Pittsburgh, Pennsylvania",
+               "Chicago, Illinois",
+               "Madison, Wisconsin"]
+    # Pittsburgh, Boulder, Chicago, Washington DC, Seattle, Madison, and San Francisco
+    download_and_filter_all_regions(regions)

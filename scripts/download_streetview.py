@@ -1,9 +1,12 @@
 from geographiclib.geodesic import Geodesic
 import google_streetview.api
+import urllib.request
+from urllib.parse import urlencode
+import requests
 import os
 import json
 import utils
-
+from pprint import pprint
 
 def download_street(way, nodes, cautious=True):
     """
@@ -37,7 +40,6 @@ def download_street(way, nodes, cautious=True):
     street_queries = []
     for idx in node_idx_to_download:
 
-
         # Note: we could also determine direction using previous/current node
         # instead of current/next node. We'll see how the results are.
         current_node_id, next_node_id = str(node_ids[idx]), str(node_ids[idx + 1])
@@ -70,22 +72,29 @@ def download_street(way, nodes, cautious=True):
         print("************** CAUTION *******************")
         input("Press Enter to continue...")
 
-    way_unique_id = "way{}".format(way_id)
-    print("Saved images in {}/".format(way_unique_id))
+    way_directory = "../data/images/way{}".format(way_id)
+    print("Saved images in {}/".format(way_directory))
 
     # This line actually calls the download function
-    download_images(street_queries, way_unique_id)
+    download_images(street_queries, way_directory)
 
-import urllib.request
-
-
-def download_images(queries, outdir):
+def download_images(queries, outdir, cautious=True):
     """
     Given a list of queries and an outdirectory, download images from the
     StreetView API to the outdirectory.
     """
     # TODO: Don't use this api; it doesn't allow for custom filenames
     results = google_streetview.api.results(queries)
+
+    check_metadata(results.metadata_links, queries)
+
+    if cautious:
+        print("************** CAUTION *******************")
+        print("About to download {} StreetView Images.".format(len(queries)))
+        print("************** CAUTION *******************")
+        input("Press Enter to continue...")
+
+
     results.preview()
     results.download_links(outdir)
 
@@ -102,7 +111,18 @@ def download_images(queries, outdir):
     # # Write the image
     # shutil.copyfileobj(response, outfile)
 
+def download_image(url, file_path):
+  r = requests.get(url, stream=True)
+  if r.status_code == 200: # if request is successful
+    with open(file_path, 'wb') as f:
+      r.raw.decode_content = True
+      shutil.copyfileobj(r.raw, f)
+
+
+
 def test_good_street():
+
+    download_street("5542164")
 
     nodes = {
          40444276: (45.55176, -122.6027257),
@@ -159,15 +179,11 @@ def test_bad_street():
     download_street(way, nodes)
 
 
-def test_out_of_portland_street():
-    """ This is a street where only one node is in portland, the rest outside """
-    test_street("5293752", ways, nodes)
-
 def test_street(way_id, ways, nodes):
     download_street(ways[way_id], nodes)
 
 
-def check_results():
+def check_metadata(metadata_links, queries):
     """
     TODO: Google StreetView will download the image from the closest reasonable
     street point it can find. If a street we are looking for is not on Google
@@ -185,34 +201,35 @@ def check_results():
     image. If we go against the direction of the road, we may have jumped to
     another road.
     """
-    pass
+    metadata = [requests.get(url, stream=True).json() for url in metadata_links]
+    pprint(metadata)
+    pprint(queries)
 
+    for query, metadata in zip(queries, metadata):
+
+        query_lat, query_lon = query['location'].split(',')
+        meta_lat, meta_lon = metadata['location']['lat'], metadata['location']['lng']
+
+        distance = Geodesic.WGS84.Inverse(float(query_lat), float(query_lon),
+                                          float(meta_lat), float(meta_lon))['s12']
+        print("Distance from query to result in meters:", distance)
 
 
 if __name__ == '__main__':
 
     filtered_nodes = utils.read_osm("filtered_nodes.json")
-    # ways = utils.read_osm("ways.json")
-    # test_bad_street()
-
-    ways = utils.read_osm("ways.json")
-    nodes = utils.read_osm("nodes.json")
-
-    # test_good_street(ways, nodes)
+    ways = utils.read_osm("../data/processed/ways_portland.json")
+    nodes = utils.read_osm("../data/processed/nodes_portland.json")
 
     # Good street
     # test_street("5542164", ways, nodes)
 
     # Out of portland street
-    # test_street("5293752", ways, nodes)
+    test_street("5293752", ways, nodes)
 
     # Long street
-    test_street("5289260", ways, nodes)
+    # test_street("5289260", ways, nodes)
 
     # Bad street - google maps routes us to a nearby but different road
     # test_street("5282846", ways, nodes)
-
-
-    # print(ways.get("5293752"))
-    # print(nodes.get(37240588))
-    # test_street("5293752", ways, nodes)
+    # These end up 30-40 meters away ???
