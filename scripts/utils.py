@@ -1,9 +1,11 @@
 """
-Uilities for downloading and exploring OSM data
-
+Uilities for downloading and exploring OSM and Street View data.
+Running this script without input arguments will generate descriptives for
+selected cities.
 Josh Sennett
 """
 import json
+
 
 def write_osm(elements, filename):
     with open(filename, 'w') as f:
@@ -30,6 +32,7 @@ def tag_value_freq(elements, tag):
         current_freq = freq.get(value, 0)
         freq[value] = current_freq + 1
     return freq
+
 
 def tag_freq(elements):
     """
@@ -60,27 +63,39 @@ def display_results(osm_data):
     print("Relations downloaded: ", osm_data.countRelations())
 
 
-def ways_descriptives(ways_filename, outfile):
+def write_ways_descriptives(ways_filename, outfile, excluded_highways=None, num_to_show=50):
 
+    # Read in file
     ways = read_osm(ways_filename)
-    num_to_show = 50
+
+    # exclude certain ways, if this option is specified
+    if excluded_highways is not None:
+        filtered_ways = {}
+        for way in ways:
+            if ways.get(way).get('tags').get('highway') not in excluded_highways:
+                filtered_ways[way] = ways[way]
+        ways = filtered_ways
 
     # Tag frequencies
     tags = sort_by_value(tag_freq(ways)) # returns a list of (tag, freq) pairs
     with open(outfile, 'w') as f:
 
         for (t, n) in tags[-num_to_show:]:
-            print(t, n)
             f.write("{} - {}\n".format(t, n))
 
         for tag in ['highway', 'sidewalk', 'bicycle', 'lanes', 'oneway', 'cycleway',
                     'RLIS:bicycle', 'source:bicycle']:
 
             f.write('\n************\n {} \n************\n'.format(tag))
-            tag_value_freqs = sort_by_value(tag_value_freq(ways, tag))
+            tag_value_freqs = tag_value_freq(ways, tag)
+            sorted_value_freqs = sort_by_value(tag_value_freqs)
 
-            for (t, n) in tag_value_freqs[-num_to_show:]:
+            for (t, n) in sorted_value_freqs[-num_to_show:]:
                 f.write("{} - {}\n".format(t, n))
+
+            if tag == 'bicycle':
+                print('Designated:', tag_value_freqs.get('designated', 0) + tag_value_freqs.get('yes', 0),
+                      'Not:', tag_value_freqs.get(None, 0) + tag_value_freqs.get('no', 0))
 
     print(outfile, "saved.")
 
@@ -88,8 +103,7 @@ def ways_descriptives(ways_filename, outfile):
 
 
 if __name__ == '__main__':
-    for region in ["boulder", "pittsburgh", "seattle", "chicago",
-                   "portland", "washington", "madison", "sanfrancisco"]:
+    for region in ["boulder", "pittsburgh", "seattle", "portland"]:
 
-        ways_descriptives("../data/processed/ways_{}.json".format(region),
-                          "../data/descriptives/{}.txt".format(region))
+        write_ways_descriptives("../data/processed/ways_{}.json".format(region),
+                          "../descriptives/{}.txt".format(region))
