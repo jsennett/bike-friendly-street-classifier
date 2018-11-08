@@ -1,0 +1,122 @@
+tunnel - 54
+source:maxspeed - 57
+lit - 61
+lcn - 68
+level - 73
+toll - 75
+uic_shuttle_route - 78
+old_name - 94
+placement - 96
+change:lanes:backward - 106
+name:etymology:wikidata - 107
+change:lanes:forward - 107
+bridge - 123
+cycleway:right - 131
+tiger:name_type_2 - 133
+NHS - 165
+tiger:name_direction_prefix_1 - 183
+layer - 250
+tiger:name_base_2 - 252
+foot - 314
+horse - 323
+hgv - 335
+tiger:name_type_1 - 345
+name_1 - 400
+old_ref - 411
+sidewalk - 466
+surface - 531
+turn:lanes:backward - 556
+maxspeed - 566
+tiger:name_base_1 - 569
+turn:lanes - 591
+turn:lanes:forward - 595
+loc_ref - 608
+ref - 1108
+lanes:backward - 1155
+lanes:forward - 1177
+bicycle - 1204
+cycleway - 1289
+oneway - 2978
+tiger:reviewed - 2996
+tiger:zip_right - 3079
+tiger:zip_left - 3138
+lanes - 3307
+tiger:name_direction_prefix - 3380
+tiger:name_type - 3410
+tiger:name_base - 3461
+tiger:cfcc - 3499
+tiger:county - 3504
+name - 6949
+highway - 6981
+
+************
+ highway 
+************
+motorway - 324
+tertiary - 1141
+primary - 2463
+secondary - 3053
+
+************
+ sidewalk 
+************
+separate - 4
+left - 5
+right - 53
+both - 95
+none - 309
+None - 6515
+
+************
+ bicycle 
+************
+||||designated| - 1
+||||designated - 2
+|||designated| - 2
+|||designated - 12
+yes - 18
+no - 302
+designated - 867
+None - 5777
+
+************
+ lanes 
+************
+8 - 5
+7 - 43
+1 - 54
+6 - 69
+4 - 695
+5 - 773
+2 - 829
+3 - 839
+None - 3674
+
+************
+ oneway 
+************
+-1 - 21
+reversible - 23
+no - 198
+yes - 2736
+None - 4003
+
+************
+ cycleway 
+************
+no - 19
+track - 82
+buffered_lane - 338
+shared_lane - 363
+lane - 487
+None - 5692
+
+************
+ RLIS:bicycle 
+************
+None - 6981
+
+************
+ source:bicycle 
+************
+None - 6981

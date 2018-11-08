@@ -1,0 +1,57 @@
+Excluding residential streets:
+
+boulder     - bike 736              no bike: 379
+pittsburgh  - bike 653              no bike: 1341
+seattle     - bike 1511             no bike: 2571
+chicago     - bike 885              no bike: 6079
+portland    - bike 4585             no bike: 1624
+washington  - bike 190              no bike: 3556
+madison     - bike 5                no bike: 1093
+sanfrancisco- bike 167              no bike: 3213
+
+Including residential streets:
+
+boulder         -bike 924       Not: 1607
+pittsburgh      -bike 848       Not: 5040
+seattle         -bike 1713      Not: 8158
+chicago         -bike 1129      Not: 14718
+portland        -bike 6354      Not: 9253
+washington      -bike 297       Not: 7534
+madison         -bike 31        Not: 4979
+sanfrancisco    -bike 209       Not: 6919
+
+    Good cities (good balance, many roads)
+
+pittsburgh
+seattle
+portland
+boulder
+
+    Totals:
+    7485 bikable streets
+    5915 not bikable streets
+
+    Bad cities (high imbalance [few bike roads])
+Madison
+san francisco
+washington
+chicago
+
+    Conclusion:
+    
+Don't use residential streets. Almost all residential streets are labeled as not bike designated; however, residential roads are bikable--the issue is that they are not tagged because they are known to be residential.
+
+We have funds for ~ 30k images So we need ~3 images per street. Since some nodes may not have corresponding Street View images, plan to take up to 10 images per road -- halting if we exceed the number we can afford.
+
+Start in Boulder, since it is smaller.
+
+
+
+
+
+
+
+
+
+
+

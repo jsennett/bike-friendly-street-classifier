@@ -1,125 +1,120 @@
-junction - 54
-bus - 55
-hov:lanes - 56
-name:zh - 66
-is_in - 66
-bus:lanes:backward - 70
-old_name:1875-1895 - 78
-cycleway:both - 79
-access:lanes - 80
-bus:lanes:forward - 81
-name:etymology:wikidata - 101
-foot - 113
-access - 120
-hgv - 128
-bus:lanes - 135
-tiger:name_base_1 - 139
-cycleway:left - 144
-bridge - 157
-cycleway:right - 180
-alt_name - 185
-lit - 186
-layer - 191
-turn:lanes - 208
-lcn - 243
-old_name - 258
-turn:lanes:both_ways - 266
-lanes:both_ways - 281
-turn:lanes:forward - 284
-turn:lanes:backward - 299
-source - 300
-ref - 432
-old_ref - 678
-lanes:backward - 907
-lanes:forward - 911
-sidewalk - 1063
-cycleway - 1440
-surface - 1565
-bicycle - 1867
-oneway - 1908
-tiger:name_direction_prefix - 3411
-tiger:reviewed - 3877
-tiger:name_direction_suffix - 4059
-lanes - 7392
-tiger:name_type - 7742
-maxspeed - 7858
-tiger:name_base - 8158
-tiger:cfcc - 8193
-tiger:county - 8201
-name - 9631
-highway - 9882
+smoothness - 62
+old_name:1875-1895 - 64
+is_in - 70
+access:lanes:backward - 70
+hov:minimum - 75
+name:zh - 77
+hov:lanes - 87
+access:lanes:forward - 87
+access:lanes - 89
+bus:lanes:backward - 109
+foot - 114
+bus:lanes:forward - 130
+name:etymology:wikidata - 134
+lit - 140
+bus:lanes - 166
+tiger:name_base_1 - 171
+hgv - 177
+cycleway:left - 182
+alt_name - 216
+cycleway:right - 227
+lcn - 247
+bridge - 270
+old_name - 282
+turn:lanes - 292
+source - 293
+layer - 316
+turn:lanes:both_ways - 339
+lanes:both_ways - 364
+turn:lanes:forward - 514
+turn:lanes:backward - 534
+ref - 619
+old_ref - 995
+sidewalk - 1133
+tiger:reviewed - 1226
+tiger:name_direction_prefix - 1306
+lanes:backward - 1476
+surface - 1484
+lanes:forward - 1484
+cycleway - 1740
+oneway - 1968
+tiger:name_direction_suffix - 2164
+bicycle - 2280
+tiger:name_type - 3962
+tiger:name_base - 4117
+tiger:cfcc - 4136
+tiger:county - 4140
+maxspeed - 4693
+lanes - 4944
+name - 5373
+highway - 5580
 
 ************
  highway 
 ************
-motorway - 241
-primary - 821
-tertiary - 1301
-secondary - 1728
-residential - 5791
+motorway - 334
+primary - 1212
+tertiary - 1556
+secondary - 2478
 
 ************
  sidewalk 
 ************
 unknown - 1
-none - 13
-left - 26
-no - 37
-separate - 67
-right - 95
-both - 824
-None - 8819
+none - 12
+left - 32
+no - 42
+separate - 69
+right - 97
+both - 880
+None - 4447
 
 ************
  bicycle 
 ************
-private - 2
-permissive - 9
-no - 143
-yes - 154
-designated - 1559
-None - 8015
+permissive - 13
+yes - 156
+no - 196
+designated - 1915
+None - 3300
 
 ************
  lanes 
 ************
 8 - 2
-7 - 47
-6 - 121
-5 - 392
-1 - 457
-3 - 601
-4 - 722
-None - 2490
-2 - 5050
+7 - 65
+6 - 198
+1 - 301
+None - 636
+5 - 673
+3 - 823
+4 - 1082
+2 - 1800
 
 ************
  oneway 
 ************
--1 - 2
-reversible - 17
-no - 273
-yes - 1616
-None - 7974
+reversible - 22
+no - 331
+yes - 1615
+None - 3612
 
 ************
  cycleway 
 ************
-opposite_lane - 1
-opposite - 3
-cycle_greenway - 4
-track - 13
-no - 72
-lane - 530
-shared_lane - 817
-None - 8442
+cycle_greenway - 2
+track - 16
+no - 64
+lane - 733
+shared_lane - 925
+None - 3840
 
 ************
  RLIS:bicycle 
 ************
-None - 9882
+None - 5580
 
 ************
  source:bicycle 
 ************
-None - 9882
+None - 5580

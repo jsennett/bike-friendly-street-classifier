@@ -1,0 +1,124 @@
+tiger:name_direction_prefix - 38
+tiger:name_direction_suffix_1 - 38
+tiger:name_type_1 - 40
+construction - 40
+construction:cycleway - 41
+source - 42
+source:construction - 43
+note - 63
+cycleway:right - 80
+tiger:name_base_1 - 99
+horse - 99
+junction - 104
+tiger:separated - 106
+tiger:tlid - 108
+tiger:source - 109
+tiger:upload_uuid - 109
+bridge - 116
+turn:lanes:backward - 133
+layer - 145
+turn:lanes:forward - 150
+note:lanes - 153
+foot - 158
+FIXME - 210
+source:lcn - 239
+hgv - 248
+turn:lanes - 299
+lcn - 299
+bicycle - 300
+maxspeed - 312
+cycleway - 333
+ref - 417
+lanes:backward - 445
+lanes:forward - 445
+surface - 467
+NHS - 600
+sidewalk - 995
+tiger:reviewed - 1932
+tiger:zip_right - 2086
+oneway - 2141
+tiger:zip_left - 2165
+tiger:name_direction_suffix - 2563
+tiger:name_base - 2620
+tiger:name_type - 2621
+tiger:county - 2715
+tiger:cfcc - 2718
+source:HFCS - 2903
+HFCS - 3166
+lanes - 3632
+name - 3709
+highway - 3748
+
+************
+ highway 
+************
+motorway - 236
+secondary - 993
+tertiary - 1102
+primary - 1417
+
+************
+ sidewalk 
+************
+right;left - 1
+right; both - 1
+separate - 5
+yes - 10
+left - 16
+no - 32
+none - 125
+right - 174
+both - 631
+None - 2753
+
+************
+ bicycle 
+************
+destination - 2
+designated - 33
+no - 108
+yes - 157
+None - 3448
+
+************
+ lanes 
+************
+8 - 25
+7 - 30
+5 - 99
+None - 116
+6 - 145
+1 - 384
+4 - 719
+3 - 729
+2 - 1501
+
+************
+ oneway 
+************
+reversible - 1
+-1 - 2
+no - 76
+None - 1607
+yes - 2062
+
+************
+ cycleway 
+************
+opposite_lane - 2
+track - 3
+no - 8
+shared_lane - 22
+lane - 298
+None - 3415
+
+************
+ RLIS:bicycle 
+************
+None - 3748
+
+************
+ source:bicycle 
+************
+MDSHA http://www.marylandroads.com/index.aspx?Pageid=596 - 1
+None - 3747

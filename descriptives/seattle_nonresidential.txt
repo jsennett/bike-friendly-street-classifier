@@ -1,0 +1,120 @@
+cycleway:both - 42
+access:lanes:backward - 42
+hov:minimum - 49
+name:zh - 50
+access:lanes:forward - 50
+bus - 53
+hov:lanes - 56
+is_in - 57
+foot - 63
+bus:lanes:backward - 70
+access:lanes - 80
+bus:lanes:forward - 81
+name:etymology:wikidata - 101
+lit - 103
+tiger:name_base_1 - 124
+hgv - 128
+bus:lanes - 135
+cycleway:left - 140
+bridge - 153
+alt_name - 157
+cycleway:right - 176
+layer - 177
+lcn - 183
+turn:lanes - 205
+old_name - 221
+source - 224
+turn:lanes:both_ways - 266
+turn:lanes:forward - 277
+lanes:both_ways - 281
+turn:lanes:backward - 292
+ref - 431
+old_ref - 676
+lanes:backward - 898
+lanes:forward - 902
+sidewalk - 907
+tiger:reviewed - 943
+tiger:name_direction_prefix - 955
+surface - 1091
+cycleway - 1259
+oneway - 1538
+tiger:name_direction_suffix - 1548
+bicycle - 1661
+tiger:name_type - 2897
+tiger:name_base - 3006
+tiger:cfcc - 3016
+tiger:county - 3020
+maxspeed - 3471
+lanes - 3604
+name - 3935
+highway - 4091
+
+************
+ highway 
+************
+motorway - 241
+primary - 821
+tertiary - 1301
+secondary - 1728
+
+************
+ sidewalk 
+************
+unknown - 1
+none - 8
+left - 24
+no - 27
+separate - 67
+right - 81
+both - 699
+None - 3184
+
+************
+ bicycle 
+************
+permissive - 9
+yes - 100
+no - 141
+designated - 1411
+None - 2430
+
+************
+ lanes 
+************
+8 - 2
+7 - 47
+6 - 121
+1 - 265
+5 - 392
+None - 487
+3 - 592
+4 - 722
+2 - 1463
+
+************
+ oneway 
+************
+reversible - 17
+no - 213
+yes - 1308
+None - 2553
+
+************
+ cycleway 
+************
+cycle_greenway - 1
+track - 13
+no - 47
+lane - 521
+shared_lane - 677
+None - 2832
+
+************
+ RLIS:bicycle 
+************
+None - 4091
+
+************
+ source:bicycle 
+************
+None - 4091

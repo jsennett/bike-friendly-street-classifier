@@ -1,0 +1,117 @@
+destination:ref:lanes - 28
+source:hgv - 29
+old_name - 33
+unsigned_ref - 34
+destination:lanes - 36
+cycleway:right - 37
+old_ref - 42
+maxspeed:type - 45
+cycleway:left - 46
+historic:railway - 48
+parking:lane:both - 49
+source:local_knowledge - 53
+note - 54
+turn:lanes:forward - 54
+source:sidewalk - 54
+turn:lanes - 56
+turn:lanes:backward - 57
+horse - 57
+source - 69
+foot - 75
+old_ref:legislative - 83
+source:cycleway - 84
+lit - 96
+bridge - 116
+layer - 121
+tiger:name_direction_prefix - 162
+lanes:forward - 182
+lanes:backward - 185
+tiger:name_base_1 - 198
+cycleway - 211
+NHS - 259
+hgv - 296
+ref:penndot - 321
+tiger:reviewed - 384
+old_ref_legislative - 442
+ref - 481
+lcn - 496
+sidewalk - 695
+bicycle - 711
+surface - 772
+tiger:zip_right - 844
+maxspeed - 891
+tiger:zip_left - 933
+oneway - 952
+tiger:name_type - 1184
+lanes - 1195
+tiger:name_base - 1220
+tiger:cfcc - 1240
+name - 1966
+highway - 1994
+
+************
+ highway 
+************
+motorway - 202
+primary - 438
+secondary - 627
+tertiary - 727
+
+************
+ sidewalk 
+************
+left - 56
+none - 61
+right - 168
+no - 190
+both - 220
+None - 1299
+
+************
+ bicycle 
+************
+yes - 14
+no - 58
+designated - 639
+None - 1283
+
+************
+ lanes 
+************
+6 - 2
+5 - 58
+1 - 135
+4 - 159
+3 - 210
+2 - 631
+None - 799
+
+************
+ oneway 
+************
+reversible - 21
+no - 261
+yes - 670
+None - 1042
+
+************
+ cycleway 
+************
+track - 1
+shared - 5
+no - 5
+lane - 93
+shared_lane - 107
+None - 1783
+
+************
+ RLIS:bicycle 
+************
+None - 1994
+
+************
+ source:bicycle 
+************
+sign - 1
+mapillary;bing - 2
+None - 1991
