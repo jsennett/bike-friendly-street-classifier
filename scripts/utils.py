@@ -100,10 +100,58 @@ def write_ways_descriptives(ways_filename, outfile, excluded_highways=None, num_
     print(outfile, "saved.")
 
 
+def get_image_labels(output_filename=None):
 
+    import os
+    import csv
+    filenames = os.listdir('../data/images/')
 
-if __name__ == '__main__':
-    for region in ["boulder", "pittsburgh", "seattle", "portland"]:
+    all_way_info = {
+        'portland': read_osm("../data/processed/ways_portland.json"),
+        'pittsburgh': read_osm("../data/processed/ways_pittsburgh.json"),
+        'seattle': read_osm("../data/processed/ways_seattle.json"),
+        'boulder': read_osm("../data/processed/ways_boulder.json"),
+    }
 
-        write_ways_descriptives("../data/processed/ways_{}.json".format(region),
-                          "../descriptives/{}.txt".format(region))
+    # return road_characteristics
+    rows = []
+
+    for filename in filenames:
+
+        row = {}
+        way_id = filename.split('_')[0][1:]
+        way_info = None
+
+        for region in ["boulder", "pittsburgh", "seattle", "portland"]:
+
+            if way_info is None:
+                way_info = all_way_info.get(region, {}).get(way_id, {}).get('tags')
+
+        # Add way characteristics
+        row['region'] = region
+        row['filename'] = filename
+
+        for tag in ['highway', 'bicycle', 'cycleway', 'lanes', 'maxspeed', 'oneway']:
+            row[tag] = way_info.get(tag, '').strip()
+
+        # Determine the image label from its characteristics
+        if (row['bicycle'] == 'designated' or 'yes' in row['bicycle'] or
+            row['cycleway'] in ['lane', 'shared', 'shared_lane',
+                                'opposite_lane', 'yes', 'cycle_greenway',
+                                'track', 'share_busway']):
+            row['label'] = 1
+        else:
+            row['label'] = 0
+
+        rows.append(row)
+
+    # Optional - write to file.
+    if output_filename is not None:
+        keys = rows[0].keys()
+        with open(output_filename, 'w') as outfile:
+            dict_writer = csv.DictWriter(outfile, keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(rows)
+            print(output_filename, "saved with", len(rows), "rows." )
+
+    return rows
