@@ -25,7 +25,7 @@
 \begin{document}
 
 %%%%%%%%% TITLE
-\title{Friendly Streets: A Street Image Classifier for Cautious Cyclists}
+\title{Friendly Streets: A Street Classifier for Cautious Cyclists}
 
 \author{Josh Sennett, Evan Rourke\\
 University of Massachusetts, Amherst\\
@@ -42,6 +42,7 @@ University of Massachusetts, Amherst\\
 
 %%%%%%%%% BODY TEXT
 
+
 %-------------------------------------------------------------------------
 \section{Introduction}
 
@@ -54,7 +55,7 @@ Road cyclists often plan cycling routes using mapping software (Google Maps, Str
 
 We will create a dataset of labeled street-view images by integrating Google Street View images with OpenStreetMap road classifications for a selection of U.S. cities. 
 
-We will download and filter OpenStreetMap road data to include roads relevant for our analysis. For each included city, we will include roads with the classification motorway, primary, secondary, and tertiary, while excluding non-road paths such as footpaths. In addition, we choose not to include residential roads, which by virtue tend to be bike-friendly but are rarely designated as such.
+We will download and filter OpenStreetMap road data to include roads relevant for our analysis. For each included city, we will include roads with the classification motorway, primary, secondary, and tertiary, while excluding non-road paths such as footpaths. In addition, we choose not to include residential roads, which by virtue tend to be bike-friendly but are rarely explicitly labeled as bike-designated.
 
 For each road, we will capture Google Street View images along different points of the road. At each point of a road, we will calculate the direction of the road using adjacent points in order to orient the panoramic Street View photo in the direction of the road. 
 
@@ -62,7 +63,8 @@ Since Google Street View images are panoramic, capturing forward-facing road ima
 
 Our dataset will include U.S. cities with a balance of bike-designated and non-designated roads. Using bike-friendly cities will help us achieve a more balanced dataset given that bike-friendly roads are, in general, less common. We focus our study in cities due to their high availability within Google Street View, and the high quality OpenStreetMap data.
 
-Our label of bike-designated comes from OpenStreetMap from the overarching classification ``bike-designated'', which may include streets with separate bicycle lanes, shared bicycle lanes, or cautionary symbols such as shared-lane markings (``sharrows''). 
+Our label of bike-designated comes from OpenStreetMap from the overarching classification ``bike-designated'', which may include streets with separate bicycle lanes, shared bicycle lanes, or cautionary street signs or shared-lane markings (sharrows). 
+
 
 \begin{figure*}
 \begin{center}
@@ -77,9 +79,40 @@ Our label of bike-designated comes from OpenStreetMap from the overarching class
 \label{fig:short}
 \end{figure*}
 
+\begin{figure*}
+\begin{center}
+\fbox{
+	\includegraphics[width=0.12\linewidth]{w11653776_n1598833914.jpg}
+	\includegraphics[width=0.12\linewidth]{w5509112_n2051934688.jpg}
+	\includegraphics[width=0.12\linewidth]{w5509189_n1377831247.jpg}
+	\includegraphics[width=0.12\linewidth]{w5509099_n3428152087.jpg}
+	\includegraphics[width=0.12\linewidth]{w4644156_n29545425.jpg}
+	\includegraphics[width=0.12\linewidth]{w4636201_n29464594.jpg}
+	\includegraphics[width=0.12\linewidth]{w427899046_n1853492947.jpg}
+	\includegraphics[width=0.12\linewidth]{w389138193_n53128678.jpg}
+}   
+	\caption{Example Street View images of roads not designated for cycling}
+
+\fbox{
+	\includegraphics[width=0.12\linewidth]{w8138098_n4917913853.jpg}
+	\includegraphics[width=0.12\linewidth]{w5509061_n40378320.jpg}
+	\includegraphics[width=0.12\linewidth]{w11687001_n104538910.jpg}
+	\includegraphics[width=0.12\linewidth]{w5393411_n1732339173.jpg}	
+	\includegraphics[width=0.12\linewidth]{w427906019_n53126448.jpg}
+	\includegraphics[width=0.12\linewidth]{w427901891_n4270671149.jpg}
+	\includegraphics[width=0.12\linewidth]{w427904780_n4270691570.jpg}
+	\includegraphics[width=0.12\linewidth]{w391114829_n3353170011.jpg}
+}   
+	\caption{Example Street View images of bike-designated roads}
+\end{center}
+\label{fig:short}
+\end{figure*}
+
+
+
 \subsection{Evaluation}
 
-We expect our classifier to be able to classify unseen street-view images as bike-friendly or not with precision and recall better than a naive guess. We plan to train our classifier on a random sample of 80\% of our dataset and evaluate it on the remaining 20\%. Additionally, we expect that the classifier learns sensible low-level features. For example, we expect that images of bike-friendly streets are more likely to contain cyclists in them; they likely contain fewer cars; and they include bike-lane markings. We will consider it a success if our classifier is able to learn to associate these features with bike-designated streets.
+We expect our classifier to be able to classify unseen street-view images as bike-friendly or not with precision and recall better than a naive guess. We plan to train our classifier on a random sample of 80\% of our dataset and evaluate it on the remaining 20\%. Additionally, we expect that the classifier learns sensible low-level features. For example, we expect that images of bike-friendly streets are more likely to contain cyclists in them; they likely contain fewer cars; and they include bike-lane markings. We will consider it a success if we are able to visualize sensible features that suggest that the network is truly learning characteristics of bike-designated roads.
 
 %-------------------------------------------------------------------------
 \section{Technical Approach}
@@ -95,14 +128,14 @@ Each image the Places365 classifier predicts:
 	\item class activation map
 \end{itemize}
 
-We will use the ResNet50 implementation of Places365, which achieves the highest top-5 accuracy of all Places365. We will retrain the final layers of the Places365-ResNet50 model, and replace layers to map the classifier to our two predicted classes.
+We will use the ResNet50 implementation of Places365, which achieves the highest top-5 accuracy of all Places365. We will replace the final layers to transfer the classifier to the bike-designated road binary-classification task, and retrain the network on our dataset.
 
 %-------------------------------------------------------------------------
 \section{Preliminary Results}
 
 \subsection{Data}
 
-We have generated a labeled dataset of 17,271 Street View images of roads in Boulder, Colorado; Pittsburgh, Pennsylvania; Portland, Oregon; and Seattle, Washington. These cities were selected due to their relative balance between bike-designated roads (55.8\%) versus non-designated roads (44.2\%). Additional data can be added as needed by incorporating new cities or by taking additional Street View images from the same roads (in the reverse direction, or from different points on each road). Manual review of samples of images suggest that the data is very high quality: less than a tenth of a percent of images are misoriented or include artifacts such as the top of the Google Street View car. 
+We have generated a labeled dataset of 17,271 Street View images of roads in Boulder, Colorado; Pittsburgh, Pennsylvania; Portland, Oregon; and Seattle, Washington. These cities were selected due to their relative balance between bike-designated roads (55.8\%) versus non-designated roads (44.2\%). Additional data can be added as needed by incorporating new cities or by taking additional Street View images from the same roads (in the reverse direction, or from different points on each road). Manual review of samples of images suggest that the data is very high quality: less than one percent of reviewed images are misoriented or include artifacts such as image blur or the top of the Google Street View car. 
 
 \subsection{Classifier}
 
