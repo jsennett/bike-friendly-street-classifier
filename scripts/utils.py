@@ -115,7 +115,7 @@ def get_image_labels(output_filename=None):
 
     # return road_characteristics
     rows = []
-
+    not_found = 0
     for filename in filenames:
 
         row = {}
@@ -125,9 +125,13 @@ def get_image_labels(output_filename=None):
         for region in ["boulder", "pittsburgh", "seattle", "portland"]:
 
             if way_info is None:
-                way_info = all_way_info.get(region, {}).get(way_id, {}).get('tags')
+                way_info = all_way_info.get(region, {}).get(way_id, {}).get('tags', {})
 
         # Add way characteristics
+        if way_info == {}:
+            print(filename, "not found *******")
+            not_found += 1
+
         row['region'] = region
         row['filename'] = filename
 
@@ -154,4 +158,26 @@ def get_image_labels(output_filename=None):
             dict_writer.writerows(rows)
             print(output_filename, "saved with", len(rows), "rows." )
 
+    print(not_found, 'not found')
     return rows
+
+
+def organize_images():
+
+    from shutil import copyfile
+    import pandas as pd
+
+    df = pd.read_csv('../descriptives/image_labels.csv')
+    labels = dict(zip(df['filename'],df['label']))
+
+    copied = 0
+    for filename in labels.keys():
+        from_path = '../data/images/%s' % filename
+        to_path = '../data/images/%d/%s' % (labels[filename], filename)
+        copyfile(from_path, to_path)
+        copied += 1
+        if copied % 1000 == 0: print(copied, 'of', len(df))
+
+
+if __name__ == '__main__':
+    organize_images()
