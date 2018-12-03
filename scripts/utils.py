@@ -170,13 +170,23 @@ def organize_images():
     df = pd.read_csv('../descriptives/image_labels.csv')
     labels = dict(zip(df['filename'],df['label']))
 
-    copied = 0
+    i = 0
     for filename in labels.keys():
+
+        if i % 5 == 0:
+            group = 'test'
+        elif i % 5 == 1:
+            group = 'val'
+        else:
+            group = 'train'
+
         from_path = '../data/images/%s' % filename
-        to_path = '../data/images/%d/%s' % (labels[filename], filename)
+        to_path = '../data/images/%s/%d/%s' % (group, labels[filename], filename)
         copyfile(from_path, to_path)
-        copied += 1
-        if copied % 1000 == 0: print(copied, 'of', len(df))
+
+
+        i += 1
+        if i % 1000 == 0: print(i, 'of', len(df))
 
 
 if __name__ == '__main__':
