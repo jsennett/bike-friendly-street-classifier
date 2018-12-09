@@ -1,0 +1,19 @@
+--TYPE OF ENVIRONMENT: outdoor
+
+--SCENE CATEGORIES:
+0.373 -> residential_neighborhood
+0.215 -> street
+0.087 -> parking_garage/outdoor
+0.030 -> campus
+0.030 -> crosswalk
+
+--SCENE ATTRIBUTES:
+man-made
+natural light
+open area
+driving
+asphalt
+biking
+pavement
+transporting
+no horizon

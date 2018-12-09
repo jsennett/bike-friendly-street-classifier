@@ -1,0 +1,19 @@
+--TYPE OF ENVIRONMENT: outdoor
+
+--SCENE CATEGORIES:
+0.836 -> residential_neighborhood
+0.029 -> campus
+0.019 -> driveway
+0.010 -> highway
+0.008 -> courthouse
+
+--SCENE ATTRIBUTES:
+natural light
+open area
+man-made
+trees
+foliage
+driving
+pavement
+biking
+leaves

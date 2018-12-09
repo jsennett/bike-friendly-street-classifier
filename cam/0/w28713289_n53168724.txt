@@ -1,0 +1,19 @@
+--TYPE OF ENVIRONMENT: outdoor
+
+--SCENE CATEGORIES:
+0.386 -> highway
+0.177 -> desert_road
+0.133 -> residential_neighborhood
+0.118 -> forest_road
+0.025 -> field_road
+
+--SCENE ATTRIBUTES:
+natural light
+open area
+driving
+man-made
+asphalt
+biking
+pavement
+sunny
+transporting
