@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}\itemsep=-1pt
 
+\bibitem{googlesv}
+Google.
+\newblock Google street view image api, 2018.
+
 \bibitem{DBLP:journals/corr/HeZRS15}
 K.~He, X.~Zhang, S.~Ren, and J.~Sun.
 \newblock Deep residual learning for image recognition.
@@ -7,8 +11,25 @@ K.~He, X.~Zhang, S.~Ren, and J.~Sun.
 
 \bibitem{koehrsen2018blog}
 W.~Koehrsen.
-\newblock Transfer learning with convoultional neural networks in pytorch,
+\newblock Transfer learning with convolutional neural networks in pytorch,
   2018.
+
+\bibitem{krizhevsky2012imagenet}
+A.~Krizhevsky, I.~Sutskever, and G.~E. Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1097--1105, 2012.
+
+\bibitem{osm}
+OpenStreetMap.
+\newblock Openstreetmap, 2018.
+
+\bibitem{6247998}
+G.~Patterson and J.~Hays.
+\newblock Sun attribute database: Discovering, annotating, and recognizing
+  scene attributes.
+\newblock In {\em 2012 IEEE Conference on Computer Vision and Pattern
+  Recognition}, pages 2751--2758, June 2012.
 
 \bibitem{patterson2014sun}
 G.~Patterson, C.~Xu, H.~Su, and J.~Hays.
@@ -33,6 +54,12 @@ M.~Wang.
 \newblock Multi-path convolutional neural networks for complex image
   classification.
 \newblock {\em CoRR}, abs/1506.04701, 2015.
+
+\bibitem{xiao2010sun}
+J.~Xiao, J.~Hays, K.~A. Ehinger, A.~Oliva, and A.~Torralba.
+\newblock Sun database: Large-scale scene recognition from abbey to zoo.
+\newblock In {\em Computer vision and pattern recognition (CVPR), 2010 IEEE
+  conference on}, pages 3485--3492. IEEE, 2010.
 
 \bibitem{DBLP:journals/corr/ZagoruykoK16}
 S.~Zagoruyko and N.~Komodakis.
