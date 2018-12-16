@@ -1,0 +1,2 @@
+Number of Guesses: 6
+Accuracy: 0.3333333333333333
