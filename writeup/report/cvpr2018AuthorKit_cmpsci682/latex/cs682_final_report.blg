@@ -3,44 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: cs682_final_report.aux
 The style file: ieee.bst
 Database file #1: cs682_final_report.bib.bib
-You've used 9 entries,
+You've used 15 entries,
             2120 wiz_defined-function locations,
-            554 strings with 5571 characters,
-and the built_in function-call counts, 3178 in all, are:
-= -- 302
-> -- 206
-< -- 1
-+ -- 82
-- -- 72
-* -- 235
-:= -- 566
-add.period$ -- 28
-call.type$ -- 9
-change.case$ -- 63
+            583 strings with 6403 characters,
+and the built_in function-call counts, 5368 in all, are:
+= -- 519
+> -- 286
+< -- 4
++ -- 114
+- -- 98
+* -- 351
+:= -- 882
+add.period$ -- 44
+call.type$ -- 15
+change.case$ -- 94
 chr.to.int$ -- 0
-cite$ -- 9
-duplicate$ -- 107
-empty$ -- 198
-format.name$ -- 72
-if$ -- 633
+cite$ -- 15
+duplicate$ -- 203
+empty$ -- 396
+format.name$ -- 98
+if$ -- 1135
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 9
-newline$ -- 48
-num.names$ -- 18
-pop$ -- 52
+int.to.str$ -- 15
+missing$ -- 12
+newline$ -- 75
+num.names$ -- 30
+pop$ -- 107
 preamble$ -- 1
-purify$ -- 54
+purify$ -- 79
 quote$ -- 0
-skip$ -- 83
+skip$ -- 174
 stack$ -- 0
-substring$ -- 127
-swap$ -- 21
-text.length$ -- 1
+substring$ -- 273
+swap$ -- 63
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 36
+type$ -- 60
 warning$ -- 0
-while$ -- 25
-width$ -- 10
-write$ -- 101
+while$ -- 45
+width$ -- 17
+write$ -- 159

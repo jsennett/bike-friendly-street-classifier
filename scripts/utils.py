@@ -126,13 +126,13 @@ def get_image_labels(output_filename=None):
 
             if way_info is None:
                 way_info = all_way_info.get(region, {}).get(way_id, {}).get('tags', {})
+                row['region'] = all_way_info.get(region)
 
         # Add way characteristics
         if way_info == {}:
             print(filename, "not found *******")
             not_found += 1
 
-        row['region'] = region
         row['filename'] = filename
 
         for tag in ['highway', 'bicycle', 'cycleway', 'lanes', 'maxspeed', 'oneway']:
@@ -188,6 +188,51 @@ def organize_images():
         i += 1
         if i % 1000 == 0: print(i, 'of', len(df))
 
+def organize_images_by_city():
+
+    from shutil import copyfile
+    import pandas as pd
+
+    df = pd.read_csv('../descriptives/image_labels.csv')
+    labels = dict(zip(df['filename'],df['label']))
+
+    i = 0
+    for filename in labels.keys():
+
+        if i % 5 == 0:
+            group = 'test'
+        elif i % 5 == 1:
+            group = 'val'
+        else:
+            group = 'train'
+
+        from_path = '../data/images/%s' % filename
+        to_path = '../data/images/%s/%d/%s' % (group, labels[filename], filename)
+        copyfile(from_path, to_path)
+
+
+        i += 1
+        if i % 1000 == 0: print(i, 'of', len(df))
+
+
+def city_to_images():
+
+    import os
+    import csv
+    filenames = os.listdir('../data/images/')
+
+    all_way_info = {
+        'portland': list(read_osm("../data/processed/ways_portland.json").keys()),
+        'pittsburgh': list(read_osm("../data/processed/ways_pittsburgh.json")),
+        'seattle': list(read_osm("../data/processed/ways_seattle.json")),
+        'boulder': list(read_osm("../data/processed/ways_boulder.json")),
+    }
+
+    return all_way_info
+
+    # for region in
+
 
 if __name__ == '__main__':
-    organize_images()
+    # organize_images()
+    get_image_labels(output_filename="../descriptives/image_labels.csv")
