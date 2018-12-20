@@ -1,0 +1,19 @@
+--TYPE OF ENVIRONMENT: outdoor
+
+--SCENE CATEGORIES:
+0.238 -> highway
+0.226 -> residential_neighborhood
+0.221 -> forest_road
+0.086 -> street
+0.034 -> crosswalk
+
+--SCENE ATTRIBUTES:
+natural light
+open area
+driving
+trees
+man-made
+asphalt
+biking
+foliage
+leaves

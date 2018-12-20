@@ -9,6 +9,9 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{url}
+\usepackage{varwidth}
+\usepackage{multicol}
+\usepackage{framed}
 
 \usepackage[breaklinks=true,bookmarks=false]{hyperref}
 
@@ -77,7 +80,7 @@ To approach this problem, we develop a convolutional neural network to classify 
 
 Developing a bike-designation street-view image classifier faces several challenges. First, there is no existing public, large-scale database of street-view images with the bike-designation label. Second, bike-designated roads contain a variety of different types of cycling infrastructure, and each type of infrastructure may look different depending on which city and country the road pertains to. Third, street-view images may not be positioned or oriented correctly to capture the relevant features. Last, street-view images are taken in real-world settings, and face several factors that decrease image quality including feature occlusion, background clutter, differences in illumination, and blur.
 
-To overcome the first challenge, we generate a labeled dataset of street-view images by integrating OpenStreetMap road classification data with Google's Street View API. To overcome the remaining challenges, we develop a convolutional neural network to classify street-view images as bike-designated or not. Previous research has demonstrated the effectiveness of CNNs for scene understanding and object detection in real-world settings, where viewpoint variation, occlusion, background clutter, illumination, and intra-class variation are expected [cite 231]. 
+To overcome the first challenge, we generate a labeled dataset of street-view images by integrating OpenStreetMap road classification data with Google's Street View API. To overcome the remaining challenges, we develop a convolutional neural network to classify street-view images as bike-designated or not. Previous research has demonstrated the effectiveness of CNNs for scene understanding and object detection in real-world settings, where viewpoint variation, occlusion, background clutter, illumination, and intra-class variation are expected. 
 
 The paper is structured as follows. Section \ref{sec:background} presents related research. Section \ref{sec:approach} explains our approach to developing a labeled dataset, neural network, and human baseline. Section \ref{sec:experiments} contains the results of our experiments to improve our network's performance. Section \ref{sec:conclusion} concludes with lessons learned and directions for future research.
 
@@ -90,15 +93,14 @@ Convolutional neural networks have been widely successful in object classificati
 
 Scene classification, however, is a more challenging, generalized task than object classification: a scene class may be correlated with the presence of objects, but such objects may appear in other scene classes. Correctly classifying a scene depends not only on objects but also attributes (relating to spatial envelope, materials, lighting, and textures).
 
-Xiao et al. developed the SUN Database, the first large-scale scene understanding database with 899 scene categories and over 130,000 labeled images\cite{xiao2010sun}. Shortly thereafter, Patternson and Hays developed the first large-scale scene attributes dataset and demonstrate the predictive power of attributes for classifying scenes \cite{6247998}. Most recently, Zhou et al. develop the Places database, a database of 434 scene categories and over 10 million scene images \cite{DBLP:journals/corr/ZhouKLTO16}. Using the Places database, Zhou et al. surpassed previous scene classification benchmarks using VGG, GoogLeNet, AlexNet, and ResNet convolutional neural networks. 
+Xiao et al. developed the SUN Database, the first large-scale scene understanding database with 899 scene categories and over 130,000 labeled images \cite{xiao2010sun}. Shortly thereafter, Patterson and Hays developed the first large-scale scene attributes dataset and demonstrate the predictive power of attributes for classifying scenes \cite{6247998}. Most recently, Zhou et al. develop the Places database, a database of 434 scene categories and over 10 million scene images \cite{DBLP:journals/corr/ZhouKLTO16}. Using the Places database, Zhou et al. surpassed previous scene classification benchmarks using VGG, GoogLeNet, AlexNet, and ResNet convolutional neural networks. 
 
 \subsection{Street View Images}
-Several researchers have used Google Street View images as a source of natural images; Google Street View cars take panoramic photos along roads, providing a rich source of images of outdoor scenes. Netzer et al use Street View images to generate the Street View House Number dataset for digit classification. Similarly, Slavkovikj et al. use Street View images to develop a road-texture dataset for classification [cite]. Gebru et al. develop a car brand classifier [cite], and Hershey and Wulfe use deep learning to recognize geo-location from city Street View images.
+Several researchers have used Google Street View images as a source of natural images; Google Street View cars take panoramic photos along roads, providing a rich source of images of outdoor scenes. Netzer et al use Street View images to generate the Street View House Number dataset for digit classification. Similarly, Slavkovikj et al. use Street View images to develop a road-texture dataset for classification \cite{slavkovikj2014image}. Gebru et al. develop a car model classifier \cite{DBLP:journals/corr/GebruKWCDLF17}, and Hershey and Wulfe use deep learning to recognize geo-location from city Street View images \cite{hersheyrecognizing}.
 
 %%%%%%%%% APPROACH
 \section{Approach}
 \label{sec:approach}
-
 
 \subsection{Data}
 To generate a labeled dataset of bike-designated street-view images, we created a tool to integrate OpenStreetMap road classifications with Google's Street View API. This tool does the following:
@@ -110,7 +112,7 @@ To generate a labeled dataset of bike-designated street-view images, we created 
 \item Query Google's Street View API using node coordinates and road orientation
 \item Save the street-view image with the road classifications
 \end{enumerate}
-Specifically, to create a dataset of bike-designated images, we did the following.
+Specifically, to create a dataset of bike-designated images, we did the following:
 
 In step 1, we used OpenStreetMap data for four cities: Boulder, Pittsburgh, Portland, and Seattle. We chose these regions because of the quality and availability of bike-designation for roads in these cities, and because these cities have near-balance between bike-designated and non-designated roads (in total, 57\% and 43\%).
 
@@ -122,67 +124,69 @@ In step 4, we determine the required camera orientation such that each image is 
 
 In step 5, we query the API to determine if a Street View image is available for the given coordinate in a radius of 10 meters. We found that reducing the search radius to 10 meters decreased the chance that images of nearby (but different) roads were not accidentally downloaded in the case that a road did not have street-view images. Then, if an image is available, we download a 640x640 image using the node coordinate and the calculated camera orientation.
 
+Finally, we randomly split our data into training, validation, and test sets using a 60-20-20 split. For training images, we applied random rotation, jitter, and horizontal flips; we resized images to 256x256 and center crop; and, we normalized images. For validation and test sets, we only resize, center crop, and normalize images.
+
 \subsection{Neural Network}
-To classify images as bicycle friendly or not, we relied on convolutional neural network architectures to predict the label of our input data. More specifically, the type of convolutional neural network that we tested was a residual neural network (ResNet) [?], which has “shortcut connections” that skip one or more convolutional layers to make training of deeper networks more efficient. In general, training CNNs can be time consuming and computationally expensive. To avoid training an entire ResNet, we decided to apply the knowledge transfer method known as transfer learning[?].
+Given the success of CNN classifiers for scene classification, we approach classifying bike-designation of street-view images by using CNN models. Specifically, we use a residual neural network (ResNet) architecture, which has ``shortcut connections'' that skip one or more convolutional layers to make training of deeper networks more efficient \cite{DBLP:journals/corr/HeZRS15}.
 
-Transfer learning is a method that can speed up the training process of building a neural network architecture by a great factor. The idea behind this method is to find a pre-existing network architecture that has already been trained for a similar problem, and apply the information that this pre-trained network has learned for a different problem. With the pretrained information, the next training step is to ‘fine-tune’ the network, or tweak the model in a way that is more practical for the other problem. We chose this training method not only for its time saving benefits, but also for the ability to effectively train models.
+The classification of bike-designation can be considered a fine-grained scene classification task. To take advantage of the knowledge developed by state-of-the-art scene classifiers, we employ transfer learning by fine-tuning a pre-trained network. The goal of transfer learning is to apply the knowledge gained by a similar problem. In the context of deep learning, this implies using the weights of a pre-trained network as the initial weights of a new network. 
 
-We researched numerous different architectures that were modelled for a similar type of classification. In our case, we used the weights from a pretrained ResNet18 model that was trained on the Places365 dataset [?], which is an image dataset that is used for recognition of scenes (ie. different indoor/outdoor environments). This model was useful for transfer learning because the convolutional layers have already learned low level features such as lines, edges, shapes that make up attributes of different indoor/outdoor environments.
+Fine-tuning involves modifying a pre-trained model to tune it to solve a different problem. Using a ResNet18 model, this implies (optionally) modifying and (necessarily) re-training one or more of the final layers of the model. With a small input dataset it is common to fix the parameters of some number of initial layers both to improve the performance of the model and to increase efficiency, by reducing the number of parameters to train. For these two reasons, we approached fine-tuning a pre-trained network by fixing all weights except for the final fully-connected layer, and then replacing the final layer with custom layers.
 
-We downloaded the pre-trained architecture of this model and ‘froze’ the convolutional layers. This means that we set the weights of the convolutional layers to not be affected by gradient descent. With the convolutional layers frozen, we chopped off the final fully-connected layer that came with the model and added layers at the end of the model to fine-tune the model to our specific classification problem. The experiments that we ran for this are further discussed in section [].  The final architecture of our network can be seen in Figure 3. 
+Given the similarity of our classification problem with the general task of scene classification, we use networks pre-trained on the Places365 scene classification dataset \cite{zhou2017places}. ResNet models pre-trained on Places365 are particularly suitable to our classification task because the convolutional layers have already learned low level features such as edges, shapes, spatial envelope, materials, lighting, and textures that are important predictors of scene classification. We chose ResNet18, rather than deeper versions of ResNet, because ResNet18 is faster to train (due to having fewer layers) while achieving comparable accuracy \cite{zhou2017places}.
 
-why we chose pre-trained places365, why we chose to fine-tune, how we came up with the final model
-pictures of training/val loss accuracy
+In Section \ref{sec:experiments}, we discuss the different types of custom layers that we trained to develop our final model, visualized in Figure \ref{fig:model}.
 
 \begin{figure}[t]
 \begin{center}
 	\includegraphics[width=.75\linewidth]{model.png}
 \end{center}
 	\caption{Final model: Pre-trained ResNet18 with three fine-tuned fully-connected layers.}
-\label{fig:long}
-\label{fig:onecol}
+\label{fig:model}
 \end{figure}
 
 \subsection{Human Benchmark}
-We noticed while going through our dataset that classifying a road as bicycle friendly or not could potentially be a difficult classification task even for humans. We hypothesized that if we give our test images to humans, then our network would out perform a human baseline. 
-
-To test this theory, we built a user interface that allowed humans to predict the label of a randomly selected test image. The user interface included a random test image and two buttons that the user could press which submitted their prediction as ‘bike friendly’ or ‘not bike friendly’. Once pressed, a new randomly selected test image would be loaded and the user can predict once more. The human The user interface for this demonstration can be seen in Figure []. 
-
-A number of UMass students volunteered to participate in our experiment to create a human baseline for this classification problem. Overall, we had 17 participants that ran experiments. On average, each participant made predictions on 77 images. In total, people made predictions on 1,313 images with a total accuracy of 59.5\%. 
-
+In order to evaluate our results, we developed a human benchmark with which to compare our network's classification accuracy. We created a cloud-hosted Jupyter Notebook to allow participants to predict the label of randomly selected images (Figure \ref{fig:ui}). Images were randomly selected from the full set of images. The user interface included a random image and two buttons that the user could press which submitted their prediction as ``not bike-designated'' or ``bike-designated''. Once pressed, a new randomly selected image would be loaded. Image accuracy was written to a private text file, hidden from the users; each user was shown their overall accuracy after they had completed labeling images. Section \ref{sec:quantitative} presents the results of the human benchmark, and compares it to the accuracy of our neural network.
 
 \begin{figure}[t]
 \begin{center}
-	\includegraphics[width=.7\linewidth]{gui.png}
+	\includegraphics[width=.7\linewidth]{gui_2.png}
 \end{center}
 	\caption{The Human Benchmark test user interface.}
-\label{fig:long}
-\label{fig:onecol}
+\label{fig:ui}
 \end{figure}
 
 %%%%%%%%% EXPERIMENTS
 \section{Experiments}
 \label{sec:experiments}
 
-To ensure that our final model would perform well, we trained a wide variety of models on our dataset. We combined a number of different models with a variety of hyperparameter values to see how they learn to our dataset. With a collection of model performances, we selected the best performing ones to be trained on the entire dataset.
+\subsection{Model selection and tuning}
 
-We started off by sampling the training and validation data even further so that we had small batches of training and validation data (approximately 10\% of the entire training/validation set). Having smaller batches of the training data allowed us to efficiently train more models in a reasonable amount time. 
+We experimented with various architectures of custom layers, hyperparameters, and optimizers to develop a bike-designation classifier. We trained these models on a random subset of training images to develop a highest-performing model, and then trained the final model on the full set of training images and evaluated on our test set.
 
-We then experimented with a number of different models and hyperparameters on our sampled training/validation set. All of the models were built off the 'head' of the frozen convolution layers. The different types of models that were trained include, 1 to 3 fully connected layers, with and without dropout and the Leaky ReLU activation function.
+First, we created random samples of images from the training and validation sets, each containing 10\% of the full training and validation sets, respectively. Using subsets of images allowed us to experiment with a wider range of models and hyperparameters in a given amount of time.
 
-Along with these various models, a number of different hyperparameters were tested. These models were trained with a variety of optimizers, regularization strengths and hidden layer sizes. The optimizers that were considered for our network architectures in Adam and Stochastic Gradient Descent (SGD) with momentum. 
+With respect to different models, we tested various architectures of custom layers to replace the final fully connected layer of the ResNet model. We tested using a single fully connected layer, two fully connected layers separated by a Leaky ReLU activation, and three fully connected layers separated by Leaky ReLU activation. In addition, we experimented with dropout between fully connected layers and using a Softmax final layer. 
 
-Each of these models were combined with the various hyperparameters to see how well they learned the input data. Each of the models were trained on the sample training data set and then tested on the the sampled validation set. To see how well the models performed, we plotted the all of the models accuracy curves over a number of epochs. We analyzed the accuracy plots of each of the models to see how they respond to the training data. 
+As we experimented with different models, we tuned hyperparameters and optimization functions. We tested different levels of L2 regularization strength, learning rates, fully-connected layer size, and tested stochastic gradient descent with momentum versus Adam optimizers. 
 
-From our analysis, we found a number of models would overfit to the training data. Other models would not learn any features and would have accuracies that would be equivalent to random guesses. Some models seemed to learn to the data and not overfit. Further analysis of the training/validation accuracy curves, lead us to choose the final model. The final model has 3 fully connected layers, with 10\% dropout in between each layer, softmax at the end, SGD with momentum optimization, learning rate of 0.1, and a hidden layer size of 400. We found that this model did not overfit to the training data and was able to learn features of the input data over time while minimizing loss. 
+After a first iteration of model and hyperparameter tuning, we conducted fine-grained tuning of hyperparameters for the most successful models, which were determined by examining the training and validation loss and accuracy curves plotted side-by-side. After this second iteration of experimentation, we chose the best model based on the training and validation accuracy and loss curves. 
+
+\subsection{Quantitative Results}
+\label{sec:quantitative}
+
+In our first round of iteration, we found that the three-layer ``heads'' (which replaced the final layer of the pre-trained ResNet) tended to achieve slightly higher accuracies; we also found that using stochastic gradient descent with momentum gave us better results than Adam, although it required fine-tuning of the learning rate and regularization strength. A second round of experimentation, specifically for fine-tuning these hyperparameters, gave us our best performing model. 
+
+Our best-performing model has 3 fully connected layers (size 400) separated by 10\% dropout and Leaky ReLU activation, followed by a Softmax layer. It uses stochastic gradient descent with 90\% momentum, a learning rate of 0.10. 
+
+After training the network on the full set of training images, we evaluate our model using the remaining 20\% of images in the test set to obtain an overall accuracy of 68.1\% (Table \ref{tab:acc}). Among the two classes, the network achieves an accuracy of 75.5\% for bike-designated roads, and 60.0\% for non-designated roads (Table \ref{tab:acc2}).
 
 \begin{table}[t]
 \begin{center}
 	\includegraphics[width=0.7\linewidth]{final_acc_table.png}
 \end{center}
    \caption{Test accuracy \& loss for the final model.}
-\label{fig:long}
-\label{fig:onecol}
+\label{tab:acc}
 \end{table}
 
 \begin{table}[t]
@@ -190,61 +194,126 @@ From our analysis, we found a number of models would overfit to the training dat
 	\includegraphics[width=0.7\linewidth]{final_acc_by_label_table.png}
 \end{center}
    \caption{Test accuracy \& loss for each class label in the final model.}
-\label{tab:long}
-\label{fig:onecol}
+\label{tab:acc2}
 \end{table}
 
-We took all of the hyperparameters of the best performing model created the 'final model' seen in Figure [?]. We trained the final model on the full training set (60\% of the entire dataset). The results of training the model on the entire training dataset can be seen plotted in the training/validation accuracy curve plotted in Figure []. With the model fully trained, we ran it on our test set (20\% of the entire dataset). The results from the test set showed that our model had an overall accuracy of \textbf{68.12\%}, seen in Table 1. Since this is a binary classification task, it is important to look at the \textit{per-label accuracy}. We found that the model was able to make successful predictions for the non-bike friendly class \textbf{57.97\%} of the time, and \textbf{75.5\%} of the time for the bike-friendly class, the results can be seen in Table 2. 
+To evaluate these results, we compare our accuracy with a human benchmark. We recruited 17 UMass student participants to label 1,313 images with a total accuracy of 59.5\%, meaning that our classifier outperformed our human benchmark by 8.6\%.
 
-% different models: fc1, fc2, fc3, w/wout dropout, leakyrelu
-% different optimizers: adam, SGD with momentum + L2 reg
-% hyperparameter search: learning rate, reg strength, hidden layer size
-% how we chose: trained on 10\% of dataset, looked at loss/acc curves
+Upon reviewing images, we suspect that this low human-accuracy is due to the fact that images of bike-designated roads do not always contain clear bike-designated infrastructure. For example, shared-lane arrows are clear indications of a bike-designated road, but are not present in every street-view image of bike-designated roads due to the positioning of the camera. On the other hand, our neural network predicted bike-designation based on scene attributes such as lighting, spatial envelope, textures, and objects, and did not rely exclusively on attributes such as shared-lane arrows or other infrastructure. In the following section, we explore qualitative results to better understand how our classifier determined relevant attributes for classification.
 
-% show images, CAM, attributes, with our prediction
-% top accuracy for our models (68\%)
+\subsection{Qualitative Results}
+\label{sec:qualitative}
+We generate class activation maps at the global average pooling layer of the ResNet model to visualize the parts of an image relevant to scene classification. Visualizing these results, we noticed that our neural network typically ignores the sky, as expected, and is highly activated on recognizable objects such as cars and light posts, as well as lane markings.
 
-% final model: fc3 (400 units?), 10\% dropout and leakyrelu, SGD + momentum, L2 reg
+In addition, we examined the SUN scene attributes that were found in each image by adding a separate classification head branching from the ResNet global average pooling layer. Using the pre-trained final layer of the SUN attributes ResNet model, we could visualize what attributes were recognized by the convolutional layers in our model, which would be fed into our custom layers for bike-designation classification. Figures \ref{fig:bf_examples} and \ref{fig:nbf_examples} present example qualitative results for bike-designated and non-bike-designated street-view images respectively.
 
-% This section begins with what kind of experiments you're doing, what kind of dataset(s) you're using, and what is the way you measure or evaluate your results. It then shows in details the results of your experiments. By details, we mean both quantitative evaluations (show numbers, figures, tables, etc) as well as qualitative results (show images, example results, etc).
+The results of the attributes demonstrate how fine-grained of a classification task the neural network faced. Both bike-designated and non-bike-designated roads contain similar attributes, given that all of the images are of outdoor, open roads, typically in suburban or rural settings. For example, ``man-made'', ``natural'', ``light'', and ``open-area'' are top attributes for images of both classes. While the distribution and order of top attributes changes from image to image, many attributes are shared between almost all images.
+
+\begin{figure}[t]
+\begin{center}
+	\includegraphics[width=0.32\linewidth]{bf.jpg} 
+	\includegraphics[width=0.32\linewidth]{bf_2.jpg} 
+	\includegraphics[width=0.32\linewidth]{bf_3.jpg} 	
+	\includegraphics[width=0.32\linewidth]{bf_cam.jpg} 
+	\includegraphics[width=0.32\linewidth]{bf_2_cam.jpg} 
+	\includegraphics[width=0.32\linewidth]{bf_3_cam.jpg} 	
+	
+\vspace{-0.5cm}
+\begin{multicols}{3}
+\begin{framed}
+open area \\
+natural light \\
+man-made \\
+asphalt \\
+driving  \\
+biking  \\
+far-away\\
+ horizon \\
+  transporting
+\end{framed}
+\begin{framed}
+
+natural light\\
+open area\\
+driving\\
+trees\\
+man-made\\
+asphalt\\
+biking\\
+foliage\\
+leaves
+\end{framed}
+\begin{framed}
+man-made\\
+natural light\\
+open area\\
+driving\\
+asphalt\\
+biking\\
+transporting\\
+clouds\\
+pavement
+\end{framed}
+\end{multicols}
+\end{center}
+   \vspace{-0.5cm}
+   \caption{Bike-designated roads with class activation maps and top predicted attributes.}
+\label{fig:bf_examples}
+\end{figure}
+
 
 
 \begin{figure}[t]
 \begin{center}
-	\includegraphics[width=1\linewidth]{final_acc_curve.png}
+	\includegraphics[width=0.32\linewidth]{non_bf.jpg} 
+	\includegraphics[width=0.32\linewidth]{non_bf_2.jpg} 
+	\includegraphics[width=0.32\linewidth]{non_bf_3.jpg} 	
+	\includegraphics[width=0.32\linewidth]{non_bf_cam.jpg} 
+	\includegraphics[width=0.32\linewidth]{non_bf_2_cam.jpg} 
+	\includegraphics[width=0.32\linewidth]{non_bf_cam_3.jpg} 		
+\vspace{-0.5cm}
+\begin{multicols}{3}
+\begin{framed}
+open area\\
+natural light\\
+man-made\\
+far-away horizon\\
+driving\\
+clouds\\
+asphalt\\
+transporting
+\end{framed}
+\begin{framed}
+
+natural light\\
+open area\\
+man-made\\
+driving\\
+asphalt\\
+biking\\
+clouds\\
+transporting\\
+pavement
+
+\end{framed}
+\begin{framed}
+man-made\\
+natural light\\
+open area\\
+driving\\
+asphalt\\
+biking\\
+pavement\\
+transporting\\
+no horizon
+\end{framed}
+\end{multicols}
+
 \end{center}
-   \caption{Training \& Validation accuracy curve for the final model.}
-\label{fig:long}
-\label{fig:onecol}
+   \vspace{-0.5cm}
+   \caption{Bike-designated roads with class activation maps and top predicted attributes.}
+\label{fig:nbf_examples}
 \end{figure}
-
-
-A useful feature of this model architecture is  to be able to extract attributes from the input data and to also generate Class Activation Maps (CAM). From the last convolution layer of the ResNet18, attributes are extracted from the features that the model can recognize in the input data. These attributes are from the SUN attributes dataset [?] which describes images with a set of attributes.  Using the weights of the classes, we are able to generate a CAM of an image to visualize what features of the image are responsible for the models prediction. The attributes along with a CAM can be seen in Figure []. Using these attributes and maps, we can qualitatively determine the difficulty of predicting one class over the other.
-
-
-
-\begin{figure}[t]
-\begin{center}
-	\includegraphics[width=0.4\linewidth]{bf.jpg} 
-	\includegraphics[width=0.4\linewidth]{bf_cam.jpg} 
-
-Top Attributes:
-open area, natural light, man-made, asphalt, driving, biking, far-away horizon, transporting, sunny
-
-	\includegraphics[width=0.4\linewidth]{non_bf.jpg}
-	\includegraphics[width=0.4\linewidth]{non_bf_cam.jpg}
-
-Top Attributes:
-open area, natural light, man-made, far-away horizon, driving, clouds, asphalt, transporting, biking
-
-\end{center}
-   \caption{Bicycle friendly road alongside its Class Activation Map (CAM), top. Non-Bicycle-friendly road alongside CAM, bottom.}
-\label{fig:long}
-\label{fig:onecol}
-\end{figure}
-
-
-
 
 
 
@@ -252,26 +321,22 @@ open area, natural light, man-made, far-away horizon, driving, clouds, asphalt, 
 %%%%%%%%% CONCLUSION
 \section{Conclusion}
 \label{sec:conclusion}
-What have you learned? 
 
-Suggest future ideas.\\
+\subsection{Findings}
 
-List and number all bibliographical references at the end of your paper. When referenced in the text,
-enclose the citation number in square brackets, for
-example. \\
+We consider this project a successful, albeit initial, first undertaking to attempt to classify roads as bike-designated or not. By achieving greater than 50\% accuracy for both classes, and by even surpassing a human benchmark, we have demonstrated that neural networks are capable of learning to classify bike-designation in street-view images. 
 
-TODO: add the rest of the citations here from cs682\_final\_report.bib
+In comparison to other classification tasks, an overall accuracy of 68.1\% seems low, especially for a binary classifier. However, the human benchmark we establish demonstrates that the classification task is non-trivial and differences between images of each class can be subtle.  
 
-\cite{slavkovikj2014image}
-\cite{patterson2014sun}
-\cite{rundle2011using}
-\cite{zhou2017places}
-\cite{DBLP:journals/corr/ZhouKLOT14}
-\cite{DBLP:journals/corr/Wang15l}
-\cite{DBLP:journals/corr/HeZRS15}
-\cite{DBLP:journals/corr/ZagoruykoK16}
-\cite{DBLP:journals/corr/ZhouKLTO16}
-\cite{koehrsen2018blog}
+Nevertheless, we believe the performance of the model can be improved. To understand why the model performed this way, it is important to consider the qualitative and quantitative results of the experiments. The quantitative results in Section \ref{sec:quantitative} show that model learns to classify images well, but not equivalently for each class. The qualitative results in Section \ref{sec:qualitative} show that the class activation maps and the attributes produced by images of each class have cross-over. 
+
+\subsection{Future Ideas}
+This paper is a first attempt to classify whether images of roads are bike-designated or not. With additional funds, we could expand our dataset to include street-view images from additional cities, countries, and more rural areas; in addition, we could consider gathering multiple images per road, and even multiple images per point (for example, looking in both directions, or looking towards the sides of roads). Improving data quality is also important; for example, comparing the timestamps of road classification tags with Google Street View images to ensure data or labels are not outdated. Ensuring that all images are correctly labelled should also increase the performance of the model. We would also consider using additional sources of data, such as car dashboard cameras.
+
+Another approach to improving this model would be changing our source of road classifications. Rather than classifying OpenStreetMap's bike-designation, the classifier could be fine-tuned to predict bike-friendliness (given rankings by cyclists) or bike-popularity (using cyclist GPS data similar to Strava Heatmap \cite{strava}). 
+
+
+\nocite{patterson2014sun, DBLP:journals/corr/ZhouKLOT14, rundle2011using,Wang15l, DBLP:journals/corr/ZagoruykoK16,koehrsen2018blog}
 
 {\small
 \bibliographystyle{ieee}
