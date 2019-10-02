@@ -1,2 +1,0 @@
-Number of Guesses: 7
-Accuracy: 0.2857142857142857
